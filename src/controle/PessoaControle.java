@@ -72,7 +72,21 @@ public class PessoaControle {
         Query consulta = em.createQuery("select i from Interesse i");
 
         return consulta.getResultList();
+       
     }
+    
+    public List<Interesse> listaIteressePessoa() {
+        
+        EntityManager em = JPAUtil.getJPAUtil();
+        Query consulta = em.createQuery(" select *from interesse i \n" +
+                                        " left outer join pessoa_interesse pi on i.id= pi.interesses_id\n" +
+                                         " left outer join pessoa p on pi.interesses_id=p.id");
+
+        return consulta.getResultList();
+        
+   
+    }
+      
       
       
 }

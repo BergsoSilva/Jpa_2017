@@ -25,8 +25,7 @@ public class Interesse implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String descricao;
-
-    @ManyToMany(mappedBy = "interesses")
+    @ManyToMany
     private List<Pessoa> pessoas;
 
     public Long getId() {

@@ -19,14 +19,10 @@ public class TelaInteresses extends javax.swing.JFrame {
     private Pessoa pessoas;
     private Interesse inte;
 
-    private String opcao = "Cadastar";
-
     public static List<Interesse> interesse = new ArrayList<>();
 
     public TelaInteresses() {
         initComponents();
-        
-        preparaNomes();
         preencherCombo();
 
     }
@@ -36,17 +32,11 @@ public class TelaInteresses extends javax.swing.JFrame {
         this.pessoas = pessoas;
         preencherCombo();
         setarValores(this.pessoas);
-        preparaNomes();
+      
 
     }
 
-    //prepara os nomes pro título da tela e o nome do botão
-    private void preparaNomes() {
-//        setTitle(opcao + " Pessoa");
-//        botaoCadastrar.setText(opcao);
-        
-    }
-
+ 
     public void preencherCombo() {
         
         comboIInteresse.removeAllItems();
@@ -63,8 +53,8 @@ public class TelaInteresses extends javax.swing.JFrame {
     }
 
     private void setarValores(Pessoa pessoa) {
-        
-        interesse=(List<Interesse>) pessoa.getInteresses();
+        PessoaControle p = new PessoaControle();
+        interesse=p.listaIteressePessoa();
         preencherTabelaInteresse();
 
     }

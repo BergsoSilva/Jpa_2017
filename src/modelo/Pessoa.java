@@ -43,8 +43,10 @@ public class Pessoa implements Serializable {
     
     @ManyToOne (cascade = CascadeType.REFRESH)
     private Cidade cidade;
-    @ManyToMany
+    
+    @ManyToMany(mappedBy = "pessoas")
     private Collection<Interesse> interesses= new ArrayList<>();
+    
     public Pessoa() {
     }
 

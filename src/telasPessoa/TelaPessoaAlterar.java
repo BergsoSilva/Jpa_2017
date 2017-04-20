@@ -9,6 +9,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import modelo.Cidade;
 import modelo.Estado;
+import modelo.Interesse;
 import modelo.Pessoa;
 import util.JPAUtil;
 
@@ -260,6 +261,7 @@ public class TelaPessoaAlterar extends javax.swing.JFrame {
     }//GEN-LAST:event_comboCidadeMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         TelaInteresses inte = new TelaInteresses(this.pessoa);
         inte.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
