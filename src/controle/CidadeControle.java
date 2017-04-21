@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import modelo.Cidade;
 import modelo.Interesse;
 import modelo.Pessoa;
 import util.JPAUtil;
 
-public class PessoaControle {
+public class CidadeControle {
 
-    public PessoaControle() {
+    public CidadeControle() {
     }
 
     public void inserir(Pessoa p)   {
@@ -54,15 +55,13 @@ public class PessoaControle {
         return pessoa;
     }
     
-    public List<Pessoa> listar()   {
-        List<Pessoa> pessoas = new ArrayList<>();
+    public List<Cidade> listar()   {
+        List<Cidade> cidade = new ArrayList<>();
         EntityManager em = JPAUtil.getJPAUtil();
         em.getTransaction().begin();
-        DAOGenerico<Pessoa> dao = new DAOGenerico<Pessoa>(em,Pessoa.class);
-        pessoas = dao.listar();
-        em.getTransaction().commit();
-        em.close();
-        return pessoas;
+        DAOGenerico<Cidade> dao = new DAOGenerico<Cidade>(em,Cidade.class);
+        cidade = dao.listar();
+        return cidade;
         
     }
     

@@ -9,9 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
-
+@NamedQuery(name = "Cidade.MediaPopulacao",query="SELECT avg(c.populacao) FROM Cidade c")
 @Entity
 public class Cidade implements Serializable {
     
@@ -24,9 +25,20 @@ public class Cidade implements Serializable {
     @Column(nullable = false)
     private String nome;
     
+    private Integer populacao;
+    
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Estado estado;
-    
+
+    public Integer getPopulacao() {
+        return populacao;
+    }
+
+    public void setPopulacao(Integer populacao) {
+        this.populacao = populacao;
+    }
+
+   
     
 
     public Cidade() {

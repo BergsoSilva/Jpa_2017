@@ -33,8 +33,9 @@ public class TelaPessoaPesquisar extends javax.swing.JFrame {
        
     private void listar() {
         PessoaControle controle = new PessoaControle();
+        pegarPesquisa();
         try {
-            pessoas = controle.listar();
+            pessoas = controle.getPessoas(this.pessoa);
             preencharTabela();
         } catch (ConstraintViolationException cex) {
             for (ConstraintViolation c : cex.getConstraintViolations()) {
@@ -42,6 +43,9 @@ public class TelaPessoaPesquisar extends javax.swing.JFrame {
             }
         }
 
+    }
+    private void pegarPesquisa(){
+        this.pessoa.setNome(campoPequisa.getText());
     }
      
     private void visualizar() {
@@ -71,10 +75,17 @@ public class TelaPessoaPesquisar extends javax.swing.JFrame {
         botaoVisualizar = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
         botaoDuplicar = new javax.swing.JButton();
+        campoPequisa = new javax.swing.JTextField();
+        btnPesquisa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tela Pesquisar Pessoa");
         setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
@@ -85,11 +96,6 @@ public class TelaPessoaPesquisar extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
-            }
-        });
-        addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                formComponentShown(evt);
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -148,9 +154,18 @@ public class TelaPessoaPesquisar extends javax.swing.JFrame {
         });
         jPanel2.add(botaoDuplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 260));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 590, 260));
+        getContentPane().add(campoPequisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 9, 520, 30));
 
-        setSize(new java.awt.Dimension(609, 301));
+        btnPesquisa.setText("OK");
+        btnPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 50, 30));
+
+        setSize(new java.awt.Dimension(609, 340));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -209,6 +224,10 @@ public class TelaPessoaPesquisar extends javax.swing.JFrame {
         preencharTabela();
     }//GEN-LAST:event_formWindowGainedFocus
 
+    private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
+         listar();
+    }//GEN-LAST:event_btnPesquisaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -249,6 +268,8 @@ public class TelaPessoaPesquisar extends javax.swing.JFrame {
     private javax.swing.JButton botaoCancelar;
     private javax.swing.JButton botaoDuplicar;
     private javax.swing.JButton botaoVisualizar;
+    private javax.swing.JButton btnPesquisa;
+    private javax.swing.JTextField campoPequisa;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaPessoa;
