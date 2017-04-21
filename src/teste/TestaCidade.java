@@ -64,11 +64,16 @@ public class TestaCidade {
         em.remove(p1);
         em.getTransaction().commit();*/
         
-        //Query consulta = em.createQuery("SELECT avg(c.populacao) FROM Cidade c");
-        Query consulta = em.createNamedQuery("Cidade.MediaPopulacao",Double.class);
-        Double soma =(Double) consulta.getSingleResult();
+        TypedQuery<String> consulta= em.createQuery("SELECT c.nome FROM Cidade c ORDER BY c.nome ASC",String.class);
+       // Query consulta = em.createNamedQuery("Cidade.MediaPopulacao",Double.class);
+       List<String> cidades = consulta.getResultList();
+        for(String ca: cidades)  {
+            System.out.println("Nome: " + ca);
+        }
         
-        System.out.println("MEDIA DA POPULAÇÃO "+soma);
+
+        
+       // System.out.println("MEDIA DA POPULAÇÃO "+soma);
         
         
        

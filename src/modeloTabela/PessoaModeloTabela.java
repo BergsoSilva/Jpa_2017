@@ -27,7 +27,7 @@ public class PessoaModeloTabela extends AbstractTableModel  {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -39,7 +39,9 @@ public class PessoaModeloTabela extends AbstractTableModel  {
             case 2: return pessoa.getTelefone();
             case 3: return pessoa.getCidade();
             case 4: return pessoa.getCidade().getEstado();
+            case 5: return pessoa.getCidade().getPopulacao();
         }
+        
         return null;
     }
     
@@ -51,6 +53,7 @@ public class PessoaModeloTabela extends AbstractTableModel  {
             case 2: return "Telefone";
             case 3: return "Cidade";
             case 4: return "Estado";
+            case 5: return "População";
         }
         return null;
     }

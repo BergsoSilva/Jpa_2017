@@ -90,13 +90,27 @@ public class PessoaControle {
     public List<Pessoa> getPessoas(Pessoa pessoa) {
         EntityManager em = JPAUtil.getJPAUtil();
         Query query = em.createQuery(" select p from Pessoa p "
-                + " WHERE p.nome like :nomePessoa");
+                + " WHERE p.nome like :nomePessoa ");
 
         query.setParameter("nomePessoa", "%" + pessoa.getNome()+"%");
 
         return query.getResultList();
     }
+    public List<Pessoa> getPessoasCrescente(Pessoa pessoa) {
+        EntityManager em = JPAUtil.getJPAUtil();
+        Query query = em.createQuery(" select p from Pessoa p  ORDER BY p.nome desc");
+
+        //query.setParameter("nomePessoa", "%" + pessoa.getNome()+"%");
+        return query.getResultList();
+    }
       
-      
+    public List<Pessoa> getPessoasDecrescente(Pessoa pessoa) {
+        EntityManager em = JPAUtil.getJPAUtil();
+        Query query = em.createQuery(" select p from Pessoa p "
+                + " ORDER BY p.nome DESC");
+
+        //query.setParameter("nomePessoa", "%" + pessoa.getNome()+"%");
+        return query.getResultList();
+    } 
       
 }

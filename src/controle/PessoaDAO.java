@@ -2,7 +2,10 @@ package controle;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import modelo.Pessoa;
+import util.JPAUtil;
 
 public class PessoaDAO {
     
@@ -33,5 +36,16 @@ public class PessoaDAO {
     
     public List<Pessoa> listar()   {
         return dao.listar();
+    }
+    
+    public Double calcularMedia(Pessoa pessoa){
+        EntityManager em = JPAUtil.getJPAUtil();
+      
+        TypedQuery<Double> consulta = gerenciador.createQuery("select distinct avg(p.cidade.populacao) from Pessoa p ", Double.class);
+        
+       
+       
+        Double media = consulta.getSingleResult();
+        return media;
     }
 }
