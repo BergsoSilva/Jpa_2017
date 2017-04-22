@@ -1,7 +1,7 @@
 package telasPessoa;
 
 import controle.EstadoDAO;
-import controle.InteresseDAO;
+import controle.InteresseControle;
 import controle.PessoaControle;
 import java.awt.PopupMenu;
 import java.util.List;
@@ -89,7 +89,7 @@ public class TelaPessoaCadastrar extends javax.swing.JFrame {
      private void carregarComboInteresse()    {
         try {
             EntityManager em = JPAUtil.getJPAUtil();
-            InteresseDAO dao = new InteresseDAO(em);
+            InteresseControle dao = new InteresseControle(em);
             List<Interesse> interesses = dao.listar();
             em.getTransaction().begin();
            // comboInteresse.removeAllItems();

@@ -1,9 +1,13 @@
 package controle;
 
+import dao.DAOGenerico;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.swing.JOptionPane;
+import modelo.Cidade;
 import modelo.Interesse;
 import modelo.Pessoa;
 import util.JPAUtil;
@@ -87,30 +91,41 @@ public class PessoaControle {
    
     }
     
-    public List<Pessoa> getPessoas(Pessoa pessoa) {
+    public List<Pessoa> getPessoas(Pessoa pessoa,String order) {
+        
+        String jpql = "select p from Pessoa p  WHERE p.nome like :nomePessoa";
+        
+        String orderby= " order by p.nome ";
+        
         EntityManager em = JPAUtil.getJPAUtil();
-        Query query = em.createQuery(" select p from Pessoa p "
-                + " WHERE p.nome like :nomePessoa ");
+        
+        Query query = em.createQuery(jpql+orderby+order);
 
-        query.setParameter("nomePessoa", "%" + pessoa.getNome()+"%");
-
+        query.setParameter("nomePessoa", "%" +pessoa.getNome()+"%");
+        
         return query.getResultList();
     }
-    public List<Pessoa> getPessoasCrescente(Pessoa pessoa) {
-        EntityManager em = JPAUtil.getJPAUtil();
-        Query query = em.createQuery(" select p from Pessoa p  ORDER BY p.nome desc");
-
-        //query.setParameter("nomePessoa", "%" + pessoa.getNome()+"%");
-        return query.getResultList();
-    }
+    
+    public Double mediaAritimetica(List<Pessoa> pessoasTabela){
+        
+         int soma=0;
+        
+        List<Cidade> filtro=new ArrayList<>();
+        
+       
+        
+        for (int i = 0; i < pessoasTabela.size(); i++) {
+             if(!filtro.contains(pessoasTabela.get(i).getCidade()))
+                  filtro.add(pessoasTabela.get(i).getCidade());
+        }
+       
+        for (Cidade cidade : filtro) {
+             soma=soma+cidade.getPopulacao();
+        }
+        
       
-    public List<Pessoa> getPessoasDecrescente(Pessoa pessoa) {
-        EntityManager em = JPAUtil.getJPAUtil();
-        Query query = em.createQuery(" select p from Pessoa p "
-                + " ORDER BY p.nome DESC");
-
-        //query.setParameter("nomePessoa", "%" + pessoa.getNome()+"%");
-        return query.getResultList();
-    } 
+        
+        return Double.valueOf(soma/filtro.size());
+    }
       
 }

@@ -1,7 +1,6 @@
 package telasPessoa;
 
 import controle.PessoaControle;
-import controle.PessoaDAO;
 import modelo.Pessoa;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class TelaPessoaPesquisar extends javax.swing.JFrame {
     
     public TelaPessoaPesquisar() {
         initComponents();
-        listar();
+        listar("asc");
     }
     
     
@@ -34,14 +33,15 @@ public class TelaPessoaPesquisar extends javax.swing.JFrame {
     }
   
        
-    private void listar() {
+    private void listar( String order) {
         EntityManager em = JPAUtil.getJPAUtil();
         PessoaControle controle = new PessoaControle();
-        PessoaDAO daoP = new PessoaDAO(em);
+
         pegarPesquisa();
-        rotuloMedia.setText(String.valueOf(daoP.calcularMedia(this.pessoa)));
+        rotuloMedia.setText("Média: ");
         try {
-            pessoas = controle.getPessoas(this.pessoa);
+            pessoas = controle.getPessoas(this.pessoa,order);
+            rotuloMedia.setText(String.valueOf(controle.mediaAritimetica(pessoas)));
             preencharTabela();
         } catch (ConstraintViolationException cex) {
             for (ConstraintViolation c : cex.getConstraintViolations()) {
@@ -165,7 +165,7 @@ public class TelaPessoaPesquisar extends javax.swing.JFrame {
         jPanel2.add(botaoDuplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, -1));
 
         rotuloMedia.setText("jLabel1");
-        jPanel2.add(rotuloMedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 220, -1, -1));
+        jPanel2.add(rotuloMedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, -1, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 590, 260));
         getContentPane().add(campoPequisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 9, 520, 30));
@@ -231,7 +231,7 @@ public class TelaPessoaPesquisar extends javax.swing.JFrame {
     }//GEN-LAST:event_formComponentShown
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        listar();
+        listar("asc");
     }//GEN-LAST:event_formWindowActivated
 
     private void botaoDuplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDuplicarActionPerformed
@@ -266,43 +266,23 @@ public class TelaPessoaPesquisar extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
-         listar();
+         listar("asc");
     }//GEN-LAST:event_btnPesquisaActionPerformed
-
-    private void ascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ascActionPerformed
-        
-    
-    }//GEN-LAST:event_ascActionPerformed
 
     private void descActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descActionPerformed
        
     }//GEN-LAST:event_descActionPerformed
 
     private void descMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_descMouseClicked
-        PessoaControle controle = new PessoaControle();
-        pegarPesquisa();
-        try {
-            pessoas = controle.getPessoasDecrescente(pessoa);
-            preencharTabela();
-        } catch (ConstraintViolationException cex) {
-            for (ConstraintViolation c : cex.getConstraintViolations()) {
-                JOptionPane.showMessageDialog(null, c.getMessage());
-            }
-        }
+        listar("desc");
     }//GEN-LAST:event_descMouseClicked
 
+    private void ascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ascActionPerformed
+
+    }//GEN-LAST:event_ascActionPerformed
+
     private void ascMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ascMouseClicked
-        PessoaControle controle = new PessoaControle();
-        pegarPesquisa();
-        try {
-            pessoas = controle.getPessoasCrescente(pessoa);
-            preencharTabela();
-            repaint();
-        } catch (ConstraintViolationException cex) {
-            for (ConstraintViolation c : cex.getConstraintViolations()) {
-                JOptionPane.showMessageDialog(null, c.getMessage());
-            }
-        }
+        listar("asc");
     }//GEN-LAST:event_ascMouseClicked
 
     /**

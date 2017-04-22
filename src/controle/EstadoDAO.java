@@ -1,5 +1,6 @@
 package controle;
 
+import dao.DAOGenerico;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
